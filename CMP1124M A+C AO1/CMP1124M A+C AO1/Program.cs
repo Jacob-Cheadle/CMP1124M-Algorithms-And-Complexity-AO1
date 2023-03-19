@@ -19,22 +19,28 @@
             int[] ROAD_3_2048 = FileToArray(ROAD_3_2048_path);
 
             Console.WriteLine("ROAD_1_256");
-            PrintList(BubbleSort(ROAD_1_256));
+            //PrintList(BubbleSort(ROAD_1_256));
+            PrintList(QuickSortSetup(ROAD_1_256));
 
             Console.WriteLine("ROAD_2_256");
-            PrintList(BubbleSort(ROAD_2_256));
+            //PrintList(BubbleSort(ROAD_2_256));
+            PrintList(QuickSortSetup(ROAD_1_256));
 
             Console.WriteLine("ROAD_3_256");
-            PrintList(BubbleSort(ROAD_3_256));
+            //PrintList(BubbleSort(ROAD_3_256));
+            PrintList(QuickSortSetup(ROAD_1_256));
 
             Console.WriteLine("ROAD_1_2048");
-            PrintList(BubbleSort(ROAD_1_2048));
+            //PrintList(BubbleSort(ROAD_1_2048));
+            PrintList(QuickSortSetup(ROAD_1_256));
 
             Console.WriteLine("ROAD_2_2048");
-            PrintList(BubbleSort(ROAD_2_2048));
+            //PrintList(BubbleSort(ROAD_2_2048));
+            PrintList(QuickSortSetup(ROAD_1_256));
 
             Console.WriteLine("ROAD_3_2048");
-            PrintList(BubbleSort(ROAD_3_2048));
+            //PrintList(BubbleSort(ROAD_3_2048));
+            PrintList(QuickSortSetup(ROAD_1_256));
 
             Console.WriteLine();
             Console.WriteLine("Press any key to exit.");
@@ -76,6 +82,56 @@
                         list[j] = list[j + 1];
                         list[j + 1] = tempVar;
                     }
+            return list;
+        }
+
+        public static int[] InsertionSort(int[] list)
+        {
+
+            return list;
+        }
+
+        public static int[] MergeSort(int[] list)
+        {
+
+            return list;
+        }
+
+        public static int[] QuickSortSetup(int[] list)
+        {
+            int leftIndex = 0;
+            int rightIndex = list.Length - 1;
+            QuickSort(list, leftIndex, rightIndex);
+            return list;
+        }
+
+        public static int[] QuickSort(int[] list, int leftIndex, int rightIndex)
+        {
+            var i = leftIndex;
+            var j = rightIndex;
+            var pivot = list[leftIndex];
+            while (i <= j)
+            {
+                while (list[i] < pivot)
+                {i++;}
+
+                while (list[j] > pivot)
+                {j--;
+                }
+                if (i <= j)
+                {
+                    int temp = list[i];
+                    list[i] = list[j];
+                    list[j] = temp;
+                    i++;
+                    j--;
+                }
+            }
+
+            if (leftIndex < j)
+                QuickSort(list, leftIndex, j);
+            if (i < rightIndex)
+                QuickSort(list, i, rightIndex);
             return list;
         }
 
