@@ -20,27 +20,33 @@
 
             Console.WriteLine("ROAD_1_256");
             //PrintList(BubbleSort(ROAD_1_256));
-            PrintList(QuickSortSetup(ROAD_1_256));
+            //PrintList(QuickSortSetup(ROAD_1_256));
+            PrintList(RadixSort(ROAD_1_256));
 
             Console.WriteLine("ROAD_2_256");
             //PrintList(BubbleSort(ROAD_2_256));
-            PrintList(QuickSortSetup(ROAD_1_256));
+            //PrintList(QuickSortSetup(ROAD_1_256));
+            PrintList(RadixSort(ROAD_2_256));
 
             Console.WriteLine("ROAD_3_256");
             //PrintList(BubbleSort(ROAD_3_256));
-            PrintList(QuickSortSetup(ROAD_1_256));
+            //PrintList(QuickSortSetup(ROAD_1_256));
+            PrintList(RadixSort(ROAD_3_256));
 
             Console.WriteLine("ROAD_1_2048");
             //PrintList(BubbleSort(ROAD_1_2048));
-            PrintList(QuickSortSetup(ROAD_1_256));
+            //PrintList(QuickSortSetup(ROAD_1_256));
+            PrintList(RadixSort(ROAD_1_2048));
 
             Console.WriteLine("ROAD_2_2048");
             //PrintList(BubbleSort(ROAD_2_2048));
-            PrintList(QuickSortSetup(ROAD_1_256));
+            //PrintList(QuickSortSetup(ROAD_1_256));
+            PrintList(RadixSort(ROAD_2_2048));
 
             Console.WriteLine("ROAD_3_2048");
             //PrintList(BubbleSort(ROAD_3_2048));
-            PrintList(QuickSortSetup(ROAD_1_256));
+            //PrintList(QuickSortSetup(ROAD_1_256));
+            PrintList(RadixSort(ROAD_3_2048));
 
             Console.WriteLine();
             Console.WriteLine("Press any key to exit.");
@@ -87,14 +93,45 @@
 
         public static int[] InsertionSort(int[] list)
         {
-
             return list;
         }
-
-        public static int[] MergeSort(int[] list)
+        public static int[] RadixSort(int[] list)
         {
-
+            int size = list.Length;
+            var maxVal = GetMaxVal(list);
+            for (int exponent = 1; maxVal / exponent > 0; exponent *= 10)
+                CountingSort(list, size, exponent);
             return list;
+        }
+        public static int GetMaxVal(int[] list)
+        {
+            int size = list.Length;
+            var maxVal = list[0];
+            for (int i = 1; i < size; i++)
+                if (list[i] > maxVal)
+                    maxVal = list[i];
+            return maxVal;
+        }
+
+
+
+        public static void CountingSort(int[] list, int size, int exponent)
+        {
+            var outputArr = new int[size];
+            var occurences = new int[10];
+            for (int i = 0; i < 10; i++)
+                occurences[i] = 0;
+            for (int i = 0; i < size; i++)
+                occurences[(list[i] / exponent) % 10]++;
+            for (int i = 1; i < 10; i++)
+                occurences[i] += occurences[i - 1];
+            for (int i = size - 1; i >= 0; i--)
+            {
+                outputArr[occurences[(list[i] / exponent) % 10] - 1] = list[i];
+                occurences[(list[i] / exponent) % 10]--;
+            }
+            for (int i = 0; i < size; i++)
+                list[i] = outputArr[i];
         }
 
         public static int[] QuickSortSetup(int[] list)
@@ -113,10 +150,11 @@
             while (i <= j)
             {
                 while (list[i] < pivot)
-                {i++;}
+                { i++; }
 
                 while (list[j] > pivot)
-                {j--;
+                {
+                    j--;
                 }
                 if (i <= j)
                 {
