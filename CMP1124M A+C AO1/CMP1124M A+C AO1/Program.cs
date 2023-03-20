@@ -137,7 +137,7 @@
                 var flag = 0;
                 for (int j = i - 1; j >= 0 && flag != 1;)
                 {
-                    if (key < list[j])
+                    if (key > list[j])
                     {
                         list[j + 1] = list[j];
                         j--;
@@ -146,7 +146,6 @@
                     else flag = 1;
                 }
             }
-            return list;
             return list;
         } //NOT COMPLETE
 
