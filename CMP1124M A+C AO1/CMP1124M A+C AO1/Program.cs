@@ -18,40 +18,42 @@
             int[] ROAD_2_2048 = FileToArray(ROAD_2_2048_path);
             int[] ROAD_3_2048 = FileToArray(ROAD_3_2048_path);
 
-            Console.WriteLine("ROAD_1_256");
-            //PrintList(BubbleSort(ROAD_1_256));
-            //PrintList(QuickSortSetup(ROAD_1_256));
-            PrintList(RadixSort(ROAD_1_256));
+            PrintList(InsertionSortDescending(ROAD_1_256));
 
-            Console.WriteLine("ROAD_2_256");
-            //PrintList(BubbleSort(ROAD_2_256));
-            //PrintList(QuickSortSetup(ROAD_1_256));
-            PrintList(RadixSort(ROAD_2_256));
+            //TestFileAscending(ROAD_1_256);
+            //TestFileAscending(ROAD_2_256);
+            //TestFileAscending(ROAD_3_256);
+            //TestFileAscending(ROAD_1_2048);
+            //TestFileAscending(ROAD_2_2048);
+            //TestFileAscending(ROAD_3_2048);
 
-            Console.WriteLine("ROAD_3_256");
-            //PrintList(BubbleSort(ROAD_3_256));
-            //PrintList(QuickSortSetup(ROAD_1_256));
-            PrintList(RadixSort(ROAD_3_256));
-
-            Console.WriteLine("ROAD_1_2048");
-            //PrintList(BubbleSort(ROAD_1_2048));
-            //PrintList(QuickSortSetup(ROAD_1_256));
-            PrintList(RadixSort(ROAD_1_2048));
-
-            Console.WriteLine("ROAD_2_2048");
-            //PrintList(BubbleSort(ROAD_2_2048));
-            //PrintList(QuickSortSetup(ROAD_1_256));
-            PrintList(RadixSort(ROAD_2_2048));
-
-            Console.WriteLine("ROAD_3_2048");
-            //PrintList(BubbleSort(ROAD_3_2048));
-            //PrintList(QuickSortSetup(ROAD_1_256));
-            PrintList(RadixSort(ROAD_3_2048));
+            //TestFileDescending(ROAD_1_256);
+            //TestFileDescending(ROAD_2_256);
+            //TestFileDescending(ROAD_3_256);
+            //TestFileDescending(ROAD_1_2048);
+            //TestFileDescending(ROAD_2_2048);
+            //TestFileDescending(ROAD_3_2048);
 
             Console.WriteLine();
             Console.WriteLine("Press any key to exit.");
             System.Console.ReadKey();
         }
+
+        public static void TestFileAscending(int[] FileArray)
+        {
+            if (BubbleSortAscending(FileArray) == QuickSortAscending(FileArray)
+                & QuickSortAscending(FileArray) == RadixSortAscending(FileArray)
+                & RadixSortAscending(FileArray) == InsertionSortAscending(FileArray))
+            { Console.WriteLine("SUCCESS!"); }
+        }
+
+        public static void TestFileDescending(int[] FileArray)
+        {
+            if (BubbleSortDescending(FileArray) == QuickSortDescending(FileArray)
+                & QuickSortDescending(FileArray) == RadixSortDescending(FileArray)
+                & RadixSortDescending(FileArray) == InsertionSortDescending(FileArray))
+            { Console.WriteLine("SUCCESS!"); }
+        } //NEED TO COMPLETE DESCENDING FUNCTIONS FIRST
 
         public static int[] FileToArray(string filePath)
         {
@@ -77,7 +79,7 @@
             Console.WriteLine();
         }
 
-        public static int[] BubbleSort(int[] list)
+        public static int[] BubbleSortAscending(int[] list)
         {
             var n = list.Length;
             for (int i = 0; i < n - 1; i++)
@@ -91,88 +93,216 @@
             return list;
         }
 
-        public static int[] InsertionSort(int[] list)
+        public static int[] BubbleSortDescending(int[] list)
         {
+            var n = list.Length;
+            for (int i = n - 2; i >= 0; i--)
+                for (int j = n - i - 2; j >= 0; j--)
+                    if (list[j] < list[j + 1])
+                    {
+                        var tempVar = list[j];
+                        list[j] = list[j + 1];
+                        list[j + 1] = tempVar;
+                    }
             return list;
         }
-        public static int[] RadixSort(int[] list)
+
+        public static int[] InsertionSortAscending(int[] list)
+        {
+            int length = list.Length;
+            for (int i = 1; i < length; i++)
+            {
+                var key = list[i];
+                var flag = 0;
+                for (int j = i - 1; j >= 0 && flag != 1;)
+                {
+                    if (key < list[j])
+                    {
+                        list[j + 1] = list[j];
+                        j--;
+                        list[j + 1] = key;
+                    }
+                    else flag = 1;
+                }
+            }
+            return list;
+        }
+
+        public static int[] InsertionSortDescending(int[] list)
+        {
+            int length = list.Length;
+            for (int i = 1; i < length; i++)
+            {
+                var key = list[i];
+                var flag = 0;
+                for (int j = i - 1; j >= 0 && flag != 1;)
+                {
+                    if (key < list[j])
+                    {
+                        list[j + 1] = list[j];
+                        j--;
+                        list[j + 1] = key;
+                    }
+                    else flag = 1;
+                }
+            }
+            return list;
+            return list;
+        } //NOT COMPLETE
+
+        public static int[] RadixSortAscending(int[] list)
         {
             int size = list.Length;
             var maxVal = GetMaxVal(list);
             for (int exponent = 1; maxVal / exponent > 0; exponent *= 10)
                 CountingSort(list, size, exponent);
+
+            int[] CountingSort(int[] list, int size, int exponent)
+            {
+                var output = new int[size];
+                var occurences = new int[10];
+                for (int i = 0; i < 10; i++)
+                    occurences[i] = 0;
+                for (int i = 0; i < size; i++)
+                    occurences[(list[i] / exponent) % 10]++;
+                for (int i = 1; i < 10; i++)
+                    occurences[i] += occurences[i - 1];
+                for (int i = size - 1; i >= 0; i--)
+                {
+                    output[occurences[(list[i] / exponent) % 10] - 1] = list[i];
+                    occurences[(list[i] / exponent) % 10]--;
+                }
+                for (int i = 0; i < size; i++)
+                    list[i] = output[i];
+                return list;
+            }
+
+            int GetMaxVal(int[] list)
+            {
+                int size = list.Length;
+                var maxVal = list[0];
+                for (int i = 1; i < size; i++)
+                    if (list[i] > maxVal)
+                        maxVal = list[i];
+                return maxVal;
+            }
+
             return list;
         }
-        public static int GetMaxVal(int[] list)
+
+        public static int[] RadixSortDescending(int[] list)
         {
             int size = list.Length;
-            var maxVal = list[0];
-            for (int i = 1; i < size; i++)
-                if (list[i] > maxVal)
-                    maxVal = list[i];
-            return maxVal;
-        }
+            var maxVal = GetMaxVal(list);
+            for (int exponent = 1; maxVal / exponent > 0; exponent *= 10)
+                CountingSort(list, size, exponent);
 
-
-
-        public static void CountingSort(int[] list, int size, int exponent)
-        {
-            var outputArr = new int[size];
-            var occurences = new int[10];
-            for (int i = 0; i < 10; i++)
-                occurences[i] = 0;
-            for (int i = 0; i < size; i++)
-                occurences[(list[i] / exponent) % 10]++;
-            for (int i = 1; i < 10; i++)
-                occurences[i] += occurences[i - 1];
-            for (int i = size - 1; i >= 0; i--)
+            int[] CountingSort(int[] list, int size, int exponent)
             {
-                outputArr[occurences[(list[i] / exponent) % 10] - 1] = list[i];
-                occurences[(list[i] / exponent) % 10]--;
+                var output = new int[size];
+                var occurences = new int[10];
+                for (int i = 0; i < 10; i++)
+                    occurences[i] = 0;
+                for (int i = 0; i < size; i++)
+                    occurences[(list[i] / exponent) % 10]++;
+                for (int i = 1; i < 10; i++)
+                    occurences[i] += occurences[i - 1];
+                for (int i = size - 1; i >= 0; i--)
+                {
+                    output[occurences[(list[i] / exponent) % 10] - 1] = list[i];
+                    occurences[(list[i] / exponent) % 10]--;
+                }
+                for (int i = 0; i < size; i++)
+                    list[i] = output[i];
+                return list;
             }
-            for (int i = 0; i < size; i++)
-                list[i] = outputArr[i];
-        }
 
-        public static int[] QuickSortSetup(int[] list)
+            int GetMaxVal(int[] list)
+            {
+                int size = list.Length;
+                var maxVal = list[0];
+                for (int i = 1; i < size; i++)
+                    if (list[i] > maxVal)
+                        maxVal = list[i];
+                return maxVal;
+            }
+
+            return list;
+        } //NOT COMPLETE
+
+        public static int[] QuickSortAscending(int[] list)
         {
             int leftIndex = 0;
             int rightIndex = list.Length - 1;
-            QuickSort(list, leftIndex, rightIndex);
+            QuickSortAlgo(list, leftIndex, rightIndex);
             return list;
-        }
 
-        public static int[] QuickSort(int[] list, int leftIndex, int rightIndex)
-        {
-            var i = leftIndex;
-            var j = rightIndex;
-            var pivot = list[leftIndex];
-            while (i <= j)
+            int[] QuickSortAlgo(int[] list, int leftIndex, int rightIndex)
             {
-                while (list[i] < pivot)
-                { i++; }
-
-                while (list[j] > pivot)
+                var i = leftIndex;
+                var j = rightIndex;
+                var pivot = list[leftIndex];
+                while (i <= j)
                 {
-                    j--;
+                    while (list[i] < pivot)
+                    { i++; }
+                    while (list[j] > pivot)
+                    {
+                        j--;
+                    }
+                    if (i <= j)
+                    {
+                        int temp = list[i];
+                        list[i] = list[j];
+                        list[j] = temp;
+                        i++;
+                        j--;
+                    }
                 }
-                if (i <= j)
-                {
-                    int temp = list[i];
-                    list[i] = list[j];
-                    list[j] = temp;
-                    i++;
-                    j--;
-                }
+                if (leftIndex < j)
+                    QuickSortAlgo(list, leftIndex, j);
+                if (i < rightIndex)
+                    QuickSortAlgo(list, i, rightIndex);
+                return list;
             }
-
-            if (leftIndex < j)
-                QuickSort(list, leftIndex, j);
-            if (i < rightIndex)
-                QuickSort(list, i, rightIndex);
-            return list;
         }
 
+        public static int[] QuickSortDescending(int[] list)
+        {
+            int leftIndex = 0;
+            int rightIndex = list.Length - 1;
+            QuickSortAlgo(list, leftIndex, rightIndex);
+            return list;
+
+            int[] QuickSortAlgo(int[] list, int leftIndex, int rightIndex)
+            {
+                var i = leftIndex;
+                var j = rightIndex;
+                var pivot = list[leftIndex];
+                while (i <= j)
+                {
+                    while (list[i] < pivot)
+                    { i++; }
+                    while (list[j] > pivot)
+                    {
+                        j--;
+                    }
+                    if (i <= j)
+                    {
+                        int temp = list[i];
+                        list[i] = list[j];
+                        list[j] = temp;
+                        i++;
+                        j--;
+                    }
+                }
+                if (leftIndex < j)
+                    QuickSortAlgo(list, leftIndex, j);
+                if (i < rightIndex)
+                    QuickSortAlgo(list, i, rightIndex);
+                return list;
+            }
+        } //NOT COMPLETE
     }
 }
 
