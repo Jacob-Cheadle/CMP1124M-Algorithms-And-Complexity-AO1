@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace CMP1124M_A_C_AO1
+﻿namespace CMP1124M_A_C_AO1
 {
     public class Search
-    { 
+    {
         public static int[] BinarySearch(int[] list, int key)
         {
             List<int> allValues = new List<int>();
@@ -40,6 +34,19 @@ namespace CMP1124M_A_C_AO1
             }
             return null;
 
+        }
+
+        public static int[] LinearSearch(int[] list, int key)
+        {
+            List<int> allValues = new List<int>();
+            for (int i = 0; i < list.Length; i++)
+            {
+                if (list[i] == key)
+                {
+                    allValues.Add(i);
+                }
+            }
+            return allValues.ToArray();
         }
     }
 }

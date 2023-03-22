@@ -1,6 +1,6 @@
-﻿namespace SortingProgram
+﻿namespace CMP1124M_A_C_AO1
 {
-    class Program
+    public class Program
     {
         public static void Main(string[] args)
         {

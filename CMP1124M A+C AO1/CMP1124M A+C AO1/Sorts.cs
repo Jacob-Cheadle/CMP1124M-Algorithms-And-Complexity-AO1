@@ -148,7 +148,7 @@
                         maxVal = list[i];
                 return maxVal;
             }
-
+            list = ReverseArray(list);
             return list;
         } //NOT COMPLETE
 
@@ -222,10 +222,19 @@
                     QuickSortAlgo(list, leftIndex, j);
                 if (i < rightIndex)
                     QuickSortAlgo(list, i, rightIndex);
+                list = ReverseArray(list);
                 return list;
             }
         } //NOT COMPLETE
 
-
+        public static int[] ReverseArray(int[] list)
+        {
+            int[] reverseList = new int[list.Length];
+            for (int i = 0; i < list.Length; i++)
+            {
+                reverseList[i] = list[list.Length - i];
+            }
+            return reverseList;
+        }
     }
 }

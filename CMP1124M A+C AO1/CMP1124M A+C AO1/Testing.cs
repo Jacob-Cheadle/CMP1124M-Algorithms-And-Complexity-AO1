@@ -18,7 +18,8 @@
             int[] ROAD_2_2048 = FileToArray(ROAD_2_2048_path);
             int[] ROAD_3_2048 = FileToArray(ROAD_3_2048_path);
 
-
+            Sorts.BubbleSortAscending(ROAD_1_256);
+            PrintList(Search.BinarySearch(ROAD_1_256, 0), 1);
 
 
 
@@ -59,12 +60,12 @@
             { Console.WriteLine("SUCCESS!"); }
         } //NEED TO COMPLETE DESCENDING FUNCTIONS FIRST
 
-        public static void PrintList(int[] list)
+        public static void PrintList(int[] list, int increment)
         {
             Console.WriteLine();
             for (int i = 0; i < list.Length; i++)
             {
-                if (i % 10 == 0 & i > 0)
+                if (i % increment == 0 & i > 0)
                 { Console.WriteLine($"{list[i]}"); }
             }
             Console.WriteLine();
