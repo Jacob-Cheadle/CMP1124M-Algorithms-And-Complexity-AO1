@@ -21,7 +21,11 @@
             int[] ROAD_3_2048 = FileToArray(ROAD_3_2048_path);
 
             //Functionality2(ROAD_1_256, ROAD_2_256, ROAD_3_256);
-            Functionality3(Sorts.BubbleSortAscending(ROAD_1_256), 2000);
+            //Functionality3(Sorts.BubbleSortAscending(ROAD_1_256), 2000);
+            //Functionality4 IMPLEMENTED during functionality3
+            Functionality5(ROAD_1_2048, ROAD_2_2048, ROAD_3_2048);
+
+
 
             Console.WriteLine();
             Console.WriteLine("Press any key to exit.");
@@ -59,6 +63,27 @@
             Console.WriteLine("Error: No Value Found");
         }
 
+        public static void Functionality5(int[] list1, int[] list2, int[] list3)
+        {
+            Console.WriteLine("ROAD_1_2048:");
+            Console.WriteLine("ASCENDING:");
+            PrintList(Sorts.BubbleSortAscending(list1), 50);
+            Console.WriteLine("DESCENDING:");
+            PrintList(Sorts.BubbleSortDescending(list1), 50);
+
+            Console.WriteLine("ROAD_2_2048:");
+            Console.WriteLine("ASCENDING:");
+            PrintList(Sorts.BubbleSortAscending(list2), 50);
+            Console.WriteLine("DESCENDING:");
+            PrintList(Sorts.BubbleSortDescending(list2), 50);
+
+            Console.WriteLine("ROAD_3_2048:");
+            Console.WriteLine("ASCENDING:");
+            PrintList(Sorts.BubbleSortAscending(list3), 50);
+            Console.WriteLine("DESCENDING:");
+            PrintList(Sorts.BubbleSortDescending(list3), 50);
+        }
+
         public static int[] FileToArray(string filePath)
         {
             var list = new List<int>();
@@ -94,6 +119,11 @@
                 { Console.WriteLine($"{list[i]}"); }
             }
             Console.WriteLine();
+        }
+
+        public static int[] MergeRoads(int[] list1, int[] list2)
+        {
+            return list1.Concat(list2).ToArray();
         }
     }
 }
