@@ -36,17 +36,42 @@
 
         }
 
-        public static int[] LinearSearch(int[] list, int key)
+        public static int[] LinearSearch(int[] list, int key, bool writing)
         {
-            List<int> allValues = new List<int>();
+            bool Flag = false;
+            int closestNum = 0;
+            var matching = new List<int>();
             for (int i = 0; i < list.Length; i++)
             {
                 if (list[i] == key)
+                { matching.Add(i); }
+            }
+
+            if (matching.Count == 0)
+                Flag = true;
+            {
+                int UpperBound = key + 1;
+                int LowerBound = key - 1;
+                while (matching.Count == 0)
                 {
-                    allValues.Add(i);
+                    for (int i = 0; i < list.Length; i++)
+                    {
+                        if (list[i] == UpperBound || list[i] == LowerBound)
+                        {
+                            matching.Add(i);
+                            closestNum = list[i];
+                        }
+                    }
+                    if (UpperBound < list.Length) { UpperBound++; }
+                    if (LowerBound > 0) { LowerBound--; }
                 }
             }
-            return allValues.ToArray();
+            if (Flag && writing)
+            {
+                Console.WriteLine("No Matching Values Found");
+                Console.WriteLine($"Closest Value ({closestNum}) Found at postitions:");
+            }
+            return matching.ToArray();
         }
     }
 }

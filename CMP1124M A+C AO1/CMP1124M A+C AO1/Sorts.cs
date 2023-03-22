@@ -150,7 +150,7 @@
             }
             list = ReverseArray(list);
             return list;
-        } //NOT COMPLETE
+        } 
 
         public static int[] QuickSortAscending(int[] list)
         {
@@ -225,7 +225,7 @@
                 list = ReverseArray(list);
                 return list;
             }
-        } //NOT COMPLETE
+        } 
 
         public static int[] ReverseArray(int[] list)
         {
