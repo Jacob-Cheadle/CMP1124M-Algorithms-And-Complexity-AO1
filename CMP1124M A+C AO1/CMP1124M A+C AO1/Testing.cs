@@ -18,8 +18,12 @@
             int[] ROAD_2_2048 = FileToArray(ROAD_2_2048_path);
             int[] ROAD_3_2048 = FileToArray(ROAD_3_2048_path);
 
-            Sorts.BubbleSortAscending(ROAD_1_256);
-            PrintList(Search.BinarySearch(ROAD_1_256, 0), 1);
+            ROAD_1_256 = Sorts.BubbleSortAscending(ROAD_1_256);
+
+            Console.WriteLine("BEFORE");
+            PrintList(ROAD_1_256, 10);
+            Console.WriteLine("AFTER");
+            PrintList(Search.LinearSearch(ROAD_1_256, 11), 1);
 
 
 
@@ -31,6 +35,13 @@
             Console.WriteLine();
             Console.WriteLine("Press any key to exit.");
             System.Console.ReadKey();
+        }
+
+        public static void Functionality2(int[] list)
+        {
+            PrintList(Sorts.BubbleSortAscending(list), 10);
+            PrintList(Sorts.BubbleSortDescending(list), 10);
+
         }
 
         public static int[] FileToArray(string filePath)
