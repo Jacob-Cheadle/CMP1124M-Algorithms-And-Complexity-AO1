@@ -6,20 +6,20 @@
         {
             while (true)
             {
-                string ROAD_1_256_path = @"C:\Users\jacob\OneDrive - University of Lincoln\Desktop\Algorithms & Complexity ASSIGNMENT\Road_1_256.txt";
+                string ROAD_1_256_path = @"C:\Users\jacob\OneDrive - University of Lincoln\Desktop\Algorithms & Complexity ASSIGNMENT\Road_1_256.txt"; //sets all the default file paths
                 string ROAD_2_256_path = @"C:\Users\jacob\OneDrive - University of Lincoln\Desktop\Algorithms & Complexity ASSIGNMENT\Road_2_256.txt";
                 string ROAD_3_256_path = @"C:\Users\jacob\OneDrive - University of Lincoln\Desktop\Algorithms & Complexity ASSIGNMENT\Road_3_256.txt";
                 string ROAD_1_2048_path = @"C:\Users\jacob\OneDrive - University of Lincoln\Desktop\Algorithms & Complexity ASSIGNMENT\Road_1_2048.txt";
                 string ROAD_2_2048_path = @"C:\Users\jacob\OneDrive - University of Lincoln\Desktop\Algorithms & Complexity ASSIGNMENT\Road_2_2048.txt";
                 string ROAD_3_2048_path = @"C:\Users\jacob\OneDrive - University of Lincoln\Desktop\Algorithms & Complexity ASSIGNMENT\Road_3_2048.txt";
-                int[] ROAD_1_256 = FileToArray(ROAD_1_256_path);
+                int[] ROAD_1_256 = FileToArray(ROAD_1_256_path); //converts all the files to seperate arrays
                 int[] ROAD_2_256 = FileToArray(ROAD_2_256_path);
                 int[] ROAD_3_256 = FileToArray(ROAD_3_256_path);
                 int[] ROAD_1_2048 = FileToArray(ROAD_1_2048_path);
                 int[] ROAD_2_2048 = FileToArray(ROAD_2_2048_path);
                 int[] ROAD_3_2048 = FileToArray(ROAD_3_2048_path);
 
-                Console.WriteLine();
+                Console.WriteLine(); //gives the user the functionality to do everything the program should be able to do
                 Console.WriteLine("Pick a functionality: ");
                 Console.WriteLine("a) Functionality 1 - Read Files to Arrays");
                 Console.WriteLine("b) Functionality 2 - Display Ascending and Descending Roads (256)");
@@ -30,7 +30,7 @@
                 Console.WriteLine();
                 string answer = Console.ReadLine();
                 answer = answer.ToUpper();
-                switch (answer)
+                switch (answer) //runs the chosen program
                 {
                     case "A":
                         Console.WriteLine("Already Complete!");
@@ -79,7 +79,7 @@
             PrintList(Sorts.BubbleSortAscending(list3), 10);
             Console.WriteLine("DESCENDING:");
             PrintList(Sorts.BubbleSortDescending(list3), 10);
-        }
+        } //runs the 2nd functionality of the assessment
 
         public static void Functionality3(int[] list, int key)
         {
@@ -89,7 +89,7 @@
                 return;
             }
             Console.WriteLine("Error: No Value Found");
-        }
+        } //runs the 3rd functionality of the assessment
 
         public static void Functionality5(int[] list1, int[] list2, int[] list3)
         {
@@ -115,7 +115,7 @@
             int key = Convert.ToInt16(Console.ReadLine());
             list3 = Sorts.RadixSortAscending(list3);
             PrintList(Search.LinearSearch(list3, key, true), 1);
-        }
+        }//runs the 5th functionality of the assessment
 
         public static void Functionality6(int[] list1, int[] list2, int increment)
         {
@@ -130,18 +130,18 @@
             int key = Convert.ToInt16(Console.ReadLine());
             NEW_ROAD = Sorts.RadixSortAscending(NEW_ROAD);
             PrintList(Search.LinearSearch(NEW_ROAD, key, true), 1);
-        }
+        } //runs the 6th functionality of the assessment
 
         public static int[] FileToArray(string filePath)
         {
             var list = new List<int>();
-            var data = File.ReadAllLines(filePath);
+            var data = File.ReadAllLines(filePath); //reads all the lines from the file
             foreach (var s in data)
             {
-                list.Add(Convert.ToInt32(s));
+                list.Add(Convert.ToInt32(s)); //adds the lines to a list and converts them to integers
             }
-            return list.ToArray();
-        }
+            return list.ToArray(); //converts the list to an array and returns it
+        } //converts the given file into and array
 
         public static void TestFileAscending(int[] FileArray)
         {
@@ -149,7 +149,7 @@
                 & Sorts.QuickSortAscending(FileArray) == Sorts.RadixSortAscending(FileArray)
                 & Sorts.RadixSortAscending(FileArray) == Sorts.InsertionSortAscending(FileArray))
             { Console.WriteLine("SUCCESS!"); }
-        }
+        } //Tests that all the Ascending sorts work correctly
 
         public static void TestFileDescending(int[] FileArray)
         {
@@ -157,21 +157,21 @@
                 & Sorts.QuickSortDescending(FileArray) == Sorts.RadixSortDescending(FileArray)
                 & Sorts.RadixSortDescending(FileArray) == Sorts.InsertionSortDescending(FileArray))
             { Console.WriteLine("SUCCESS!"); }
-        }
+        } //Tests that all the descending sorts work correctly
 
         public static void PrintList(int[] list, int increment)
         {
             for (int i = 0; i < list.Length; i++)
             {
-                if (i % increment == 0)
+                if (i % increment == 0) //checks that the increment has been met so it can write the value
                 { Console.WriteLine($"{list[i]}"); }
             }
             Console.WriteLine();
-        }
+        } //function to display a given array with a given increment
 
         public static int[] MergeRoads(int[] list1, int[] list2)
         {
             return list1.Concat(list2).ToArray();
-        }
+        } //function to merge 2 given arrays
     }
 }
